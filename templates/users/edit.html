@@ -1,0 +1,111 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Edit Bahan Baku Karet</h4>                
+            </div>
+        </div>                
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form action="{{ url_for('update_product', id=product.id) }}" method="POST">
+            <div class="mb-3 row">
+                <label for="html5-tel-input" class="col-md-2 col-form-label">Kode Produksi</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="code" type="text" id="html5-tel-input" placeholder="RX XXX-XXXX" value="{{ product.code }}" />
+                </div>
+            </div>
+                        
+            <div class="mb-3 row">
+                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">Tanggal Produksi</label>
+                <div class="col-md-10">
+                    <input
+                    class="form-control" name="production_date" type="date"
+                    id="html5-datetime-local-input"
+                    value="{{ product.production_date }}"
+                    />
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">Tanggal Analisa</label>
+                <div class="col-md-10">
+                <input
+                    class="form-control" name="analysis_date" type="date"
+                    id="html5-datetime-local-input"
+                    value="{{ product.analysis_date }}"
+                />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-tel-input" class="col-md-2 col-form-label">Lot Nos</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="lot_nos" type="text" id="html5-tel-input" placeholder="X.000" value="{{ product.lot_nos }}" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Kadar Kotoran</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="dirt_level" type="float" id="html5-number-input" placeholder="0.00" value="{{ product.dirt_level }}" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Kadar Abu</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="ash_level" type="float" id="html5-number-input" placeholder="0.00" value="{{ product.ash_level }}"/>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Kadar Zat Menguap</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="evaporating_level" type="float" id="html5-number-input" placeholder="0.00" value="{{ product.evaporating_level }}"/>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Nilai PO</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="po_value" type="float" id="html5-number-input" placeholder="00.00" value="{{ product.po_value }}"/>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Nilai PRI</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="pri_value" type="float" id="html5-number-input" placeholder="00.00" value="{{ product.pri_value }}"/>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Kadar Nitrogen</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="nitrogen_content" type="float" id="html5-number-input" placeholder="0.00" value="{{ product.nitrogen_content }}"/>
+                </div>                      
+            </div>
+
+            <div class="mb-3 row">
+                <label for="html5-number-input" class="col-md-2 col-form-label">Klasifikasi</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="classification" type="text" id="html5-number-input" placeholder="-" value="{{ product.classification }}" readonly/>
+                </div>
+            </div>
+
+            <div class="row float-end">
+                <div class="col">                    
+                    <a href="{{ url_for('index_apriory') }}" class="btn btn-danger">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Apriori</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #696cff;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Laporan Apriori</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Aturan</th>
+                <th>Support</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in rules %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item['text'] }}</td>
+                <td>{{ item['support'] }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

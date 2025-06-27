@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Manajemen Dataset</h4>
+            </div>
+        </div>        
+        <div class="col">
+            <div class="card-body text-end">               
+                {% if datasets|length > 0 %}                    
+                <a href="{{ url_for('export_dataset') }}" class="btn btn-info btn-sm" target="_blank">
+                    <i class="fa fa-download"></i> Export File Excel
+                </a>
+                {% endif %}                             
+                <a href="{{ url_for('upload_form') }}" class="btn btn-success btn-sm ">
+                    <i class="fa fa-plus"></i> Import File CSV
+                </a>
+                   <a href="{{ url_for('delete_all_dataset') }}" class="btn btn-danger btn-sm ">
+                    <i class="fa fa-trash"></i> Hapus Semua
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">                
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="table-product">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>No Invoice</th>
+                                <th>Tanggal</th>
+                                <th>Barang</th>                                
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            {% for dataset in datasets %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ dataset['code'] }}</td>
+                                <td>{{ dataset['date'] }}</td>
+                                <td>{{ dataset['items'] }}</td>                                
+                                <td>Rp. {{ dataset['total'] }}</td>                                                                
+                                <td>
+                                    <a href="{{ url_for('edit_dataset', id=dataset['id']) }}" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

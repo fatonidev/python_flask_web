@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Edit Dataset</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="card-body">
+        <form action="{{ url_for('update_dataset', id=dataset['id']) }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">No Invoice</label>
+                <input type="text" class="form-control" name="code" value="{{ dataset['code'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tanggal</label>
+                <input type="date" class="form-control" name="date" value="{{ dataset['date'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Barang</label>
+                <input type="text" class="form-control" name="items" value="{{ dataset['items'] }}" required>
+                <small class="text-muted">Pisahkan dengan koma untuk multiple items</small>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Total</label>
+                <input type="number" class="form-control" name="total" value="{{ dataset['total'] }}" required>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('index_dataset') }}" class="btn btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

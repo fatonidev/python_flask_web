@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Manajemen User</h4>                
+            </div>
+        </div>
+        <div class="col">
+            <div class="card-body">                            
+                <a href="{{ url_for('create_user') }}" class="btn btn-primary btn-sm top-right mt-2">
+                    <i class="fa fa-plus"></i> Tambah User
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">                
+                <table class="table table-striped table-bordered table-hover" id="table-user">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>
+                                <!-- <a href="{{ url_for('show_user', id=user.id) }}" class="btn btn-sm btn-primary">Edit</a> -->
+                                <a href="{{ url_for('delete_user', id=user.id) }}" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
+</div>
+{% endblock %}

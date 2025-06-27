@@ -1,0 +1,159 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Proses Apriori</h4>                
+            </div>
+        </div>                
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <form action="{{ url_for('apriory_process') }}" method="POST">                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="start_date">Tanggal Mulai</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}" required> 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="end_date">Tanggal Akhir</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}" required> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="min_support">Minimum Support</label>
+                                <input type="number" class="form-control" id="min_support" name="min_support" placeholder="Masukkan minimum support dalam persen ( % )" value="{{ min_support*100 }}" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="min_confidence">Minimum Confidence</label>
+                                <input type="number" class="form-control" id="min_confidence" name="min_confidence" placeholder="Masukkan minimum confidence dalam persen ( % )" value="{{ min_confidence*100 }}" required>
+                            </div>
+                        </div>
+                    </div>                    
+                    <button type="submit" class="btn btn-primary mt-3">Proses</button>
+                </form>
+            </div>
+        </div>                
+    </div>
+</div>
+
+{% if association_results %}
+<div class="card mt-2">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Hasil Proses Apriori</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="table-product">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Barang</th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            {% for dataset in datasets %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ dataset['date'] }}</td>
+                                <td>{{ dataset['items'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                {% for item in itemsets %}
+                    <div class="row mt-2">
+                        <h5>C {{ loop.index }}</h5>                    
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Support</th>
+                                </tr>
+                            </thead>
+                            <tbody>                                
+                                {% for item_data in item['items'] %}
+                                <tr>
+                                    <td>{{ item_data['item'] }}</td>
+                                    <td>{{ item_data['count'] }}</td>
+                                    <td>{{ item_data['support'] }} %</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+                
+            </div>  
+        </div> 
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Hasil Asosiasi</h4>                
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="start_date">Rule</label>                            
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="end_date">Support</label>                            
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="end_date">Confidence</label>                            
+                        </div>
+                    </div>            
+                </div>
+                {% for item in association_results %}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">                            
+                            <input type="text" class="form-control mt-2" id="start_date" name="start_date" value="{{ item['antecedent'] }} -> {{ item['consequent'] }}" readonly> 
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">                            
+                            <input type="text" class="form-control mt-2" id="end_date" name="end_date" value="{{ item['support'] }} %" readonly> 
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input type="text" class="form-control mt-2" id="end_date" name="end_date" value="{{ item['confidence'] }} %" readonly> 
+                        </div>
+                    </div>                    
+                </div>
+                {% endfor %}                
+            </div>
+        </div>                
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

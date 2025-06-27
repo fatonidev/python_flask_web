@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="d-flex align-items-end row">
+        <div class="col">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Upload Dataset</h4>                
+            </div>
+        </div>                
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form action="{{ url_for('upload_dataset') }}" method="POST" enctype='multipart/form-data'>
+            <div class="mb-3 row">
+                <label for="html5-tel-input" class="col-md-2 col-form-label">File</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="file" type="file" id="html5-tel-input" accept=".csv"/>
+                </div>
+            </div>             
+
+            <div class="row float-end">
+                <div class="col">                    
+                    <a href="{{ url_for('index_dataset') }}" class="btn btn-danger">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
